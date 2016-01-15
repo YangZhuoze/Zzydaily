@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block title %}Index{% endblock %}
+
+{% block metas %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="wb:webmaster" content="b741fbe5051466c5" />
+{% endblock %}
+
+{% block scripts %}
+<!-- <script src="{{ url_for('static', filename = 'js/jquery.min.js') }}"></script> -->
+<!-- <script src="{{ url_for('static', filename = 'js/bootstrap.min.js') }}"></script> -->
+<script src="http://lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.min.js"></script>
+<script src="http://lib.sinaapp.com/js/bootstrap/v3.0.0/js/bootstrap.min.js"></script>
+<script src="{{ url_for('static', filename = 'js/custom.js') }}"></script>
+<script>
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    })
+</script>
+{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename = 'css/pages/index.css') }}">
+{% endblock %}
+
+{% block content %}
+    {% include '_header_index.html' %}
+    <div class="row">
+        <div class="col-md-8">
+            {% include '_mind.html' %}
+        </div>
+        <div class="col-md-4">
+            {% include '_personality.html' %}
+        </div>
+    </div>
+{% endblock %}

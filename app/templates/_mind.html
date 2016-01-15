@@ -1,0 +1,94 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        {{ mind_form.hidden_tag() }}
+        <div>What's on your mind?</div>
+        {{ mind_form.mind(id = 'mind_form') }}
+        {{ mind_form.submit(class = 'btn btn-default') }}
+    </div>
+</div>
+{% for mind in minds %}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div style="font-size: 15px">
+            {% if mind.author.username != 'yangz' %}
+                <span class="label label-primary">by {{ mind.author.username }}</span>
+            {% endif %}
+            前面也来一点
+            {{ mind.body_html }}
+            来几个中文啊大兄弟
+        </div>
+        <div class="row">
+            <div class="col-md-11 mind-timestamp">
+                {{ mind.timestamp }}
+            </div>
+            <div class="col-md-1">
+                <a href="#mind-comment-{{ mind.id }}" class="mind-label" data-toggle="collapse">
+                    <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                </a>
+            </div>
+        </div>
+        <div>
+            <div id="mind-comment-{{ mind.id }}" class="collapse">
+                <form action="/send/mind-comment" method="POST" class="input-group">
+                    {{ comment_form.hidden_tag() }}
+                    <div style="display: none;">
+                        {{ comment_form.mind_id(value = mind.id, id = 'mind-comment-%s-mind' % mind.id) }}
+                    </div>
+                    {{ comment_form.comment(class = 'form-control', id = 'mind-comment-%s-content' % mind.id) }}
+                    <span class="input-group-btn">
+                        {{ comment_form.submit(class = 'btn btn-default',
+                            id = 'mind-comment-%s-button' % mind.id) }}
+                    </span>
+                </form>
+            </div>
+            <div style="padding-top: 10px">
+                <div style="background-color: rgb(245, 245, 245);">
+                    {% for comment in mind.comments %}
+                        <div class="media">
+                            <div class="media-left">
+                                <img src="{{ url_for('static', filename = 'img/avatar/%s.png' % comment.author.avatar) }}" alt="">
+                            </div>
+                            <div class="media-body"
+                                onmouseover="showReply('mind-comment-reply-button-{{ comment.id }}')"
+                                onmouseout="hideReply('mind-comment-reply-button-{{ comment.id }}')">
+                                <div>
+                                    <a href="">{{ comment.author.username }}</a>: {{ comment.content}}
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-10 mind-comment-timestamp">
+                                        {{ comment.timestamp.strftime('%Y-%m-%d %H:%M:%S')  }}
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="#mind-comment-reply-{{ comment.id }}" id="mind-comment-reply-button-{{ comment.id }}"
+                                            class="mind-comment-reply" data-toggle="collapse">
+                                            回复
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="mind-comment-reply-0{{ comment.id }}" class="collapse">
+                            <form action="/send/mind-comment" method="POST" class="input-group" style="padding-top: 5px">
+                                {{ comment_form.hidden_tag() }}
+                                <div style="display: none;">
+                                    {{ comment_form.mind_id(value = mind.id, id = 'mind-comment-reply-%s-mind' % comment.id) }}
+                                </div>
+                                {{ comment_form.comment(class = 'form-control', value = '@%s :' % comment.author.username,
+                                    id = 'mind-comment-reply-%s-content' % comment.id) }}
+                                <span class="input-group-btn">
+                                    {{ comment_form.submit(class = 'btn btn-default',
+                                        id = 'mind-comment-reply-%s-button' % comment.id) }}
+                                </span>
+                            </form>
+                        </div>
+                        {% if not loop.last %}
+                        <hr>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endfor %}

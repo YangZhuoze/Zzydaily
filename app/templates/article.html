@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Article{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename = 'css/pages/article.css') }}">
+{% endblock %}
+
+{% block content %}
+    {% include '_header.html' %}
+    <div class="panel">
+        <div class="panel-body">
+            <div id="title">Article</div>
+            <div class="col-md-10" id="article-body">
+                {% for article in articles %}
+                    <div>
+                        <h3><a href="{{ url_for('.article_body', id = article.id) }}" id="article-title">
+                            {{ article.title }}</a></h3>
+                        <div>{{ article.content[:300] }} ...</div>
+                        <div class="row">
+                            <div class="article-timestamp">
+                                {{ article.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}
+                                &nbsp;&nbsp;Tag: {{ article.category.name }}
+                            </div>
+                            <div class="article-more">
+                                 <span class="label label-warning">{{ article.views_count }} View</span>
+                                 <span class="label label-info">{{ article.comments.count() }} Comment</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% if not loop.last %}
+                    <hr>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="col-md-2" id="category-body">
+                <div class="row">
+                    <div id="category">Category</div>
+                </div>
+                <div class="row">
+                    <div class="category-name">All Article</div>
+                    <div class="category-count">{{ articles|length }}</div>
+                </div>
+                {% for category in categories %}
+                    <div class="row">
+                        <div class="category-name">{{ category.name }}</div>
+                        <div class="category-count">{{ category.articles.count() }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

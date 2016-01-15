@@ -1,0 +1,77 @@
+hr {
+     font-size: 0px;
+     line-height: 0px;
+     padding: 0px;
+     margin: 10px;
+     border-top: 1px solid #C0C0C0;
+}
+
+#body {
+    margin: 10px;
+}
+
+#title {
+    margin: 10px;
+    font-size: 24px;
+}
+
+#timestamp {
+    margin: 10px;
+    margin-top: -10px;
+    font-size: 9px;
+    color: grey;
+
+}
+
+#content {
+    margin: 10px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+#popularity {
+    margin: 10px;
+}
+
+#nav {
+    margin: 30px;
+    font-size: 14px;
+    padding-bottom: 1px;
+}
+
+#editor {
+    overflow: scroll;
+    height:200px;
+    max-height:300px;
+    width:100%;
+}
+
+.nav-prev {
+    float: left;
+}
+
+.nav-next {
+    float: right;
+}
+
+.nav-text {
+    display: inline;
+    padding-top: 10px;
+}
+
+.nav-span {
+    font-size: 12px;
+    color: black;
+}
+
+.avatar {
+    height: 40px;
+    width: 40px;
+}
+
+.commenttimestamp {
+    font-size: 9px;
+    color: grey;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}

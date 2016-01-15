@@ -1,0 +1,21 @@
+
+#header {
+    padding-top: 40px;
+    padding-bottom: 0px;
+    margin-bottom: 20px
+}
+
+#header-title {
+    background-color: rgba(255, 255, 255, 0.4);
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: #900000;
+    font-family: Microsoft Yahei;
+}
+
+#avatar {
+    width: 120px;
+    height: 120px;
+}

@@ -1,0 +1,26 @@
+<div class="row media" id="header">
+    <div class="media-left">
+        <img src="{{ url_for('static', filename = 'img/avatar/avatar.png') }}"
+            alt="" class="img-circle" id="avatar">
+    </div>
+    <div class="media-body">
+        <div class="col-md-10">
+            <div>
+                <div id="header-title">
+                    <h1>
+                        史小迪的日常</br>
+                        <small style="color: #900000">是啊就是个不知道写什么的地方</small>
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2" style="padding-top: 15px">
+            <img src="{{ url_for('static', filename = 'img/weather/weather.png') }}"
+                alt="" class="img-circle" id="weather-img">
+            <div id="weather">
+                {{ weather.get('basic').get('city') }}
+                {{ weather.get('daily_forecast')[0].get('tmp').get('min') }}~{{ weather.get('daily_forecast')[0].get('tmp').get('max') }}℃
+            </div>
+        </div>
+    </div>
+</div>

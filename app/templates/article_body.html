@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename = 'css/pages/article_body.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename = 'css/wangEditor-1.3.13.2.css') }}">
+<!-- <link rel="stylesheet" href="{{ url_for('static', filename = 'css/highlightJS/github-gist.css') }}"> -->
+<link href="//cdn.bootcss.com/highlight.js/8.9.1/styles/github-gist.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block scripts %}
+<!-- <script type="text/javascript" src="{{ url_for('static', filename = 'js/jquery.min.js') }}"></script> -->
+<!-- <script type="text/javascript" src="{{ url_for('static', filename = 'js/highlight.pack.js') }}"></script> -->
+<script src="http://lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.0.0/highlight.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename = 'js/wangEditor-1.3.13.2.js') }}"></script>
+<script type="text/javascript">
+    $(function(){
+        $('pre code').each(function(i, block) {
+                hljs.highlightBlock(block);
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function() {
+        var editor = $('#editor').wangEditor({
+            'menuConfig': [
+                ['viewSourceCode'],
+                ['bold', 'underline', 'italic', 'strikethrough'],
+                ['blockquote', 'fontFamily', 'list'],
+                ['createLink', 'insertExpression'],
+                ['insertImage', 'insertVideo', 'insertLocation','insertCode'],
+                ['undo', 'redo', 'fullScreen']
+            ]
+        });
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+    {% include '_header.html' %}
+    <div class="panel panel-body">
+        <div id="title">{{ article.title }}</div>
+        <div id="timestamp">在&nbsp;{{ article.timestamp }}&nbsp;发表在&nbsp;{{ article.category.name }}</div>
+        <hr>
+        <div id="content">{{ article.content }}</div>
+        <div id="popularity">
+            <span class="label label-success">{{ article.views_count }} View</span>
+            <span class="label label-warning">{{ article.comments.count() }} Comment</span>
+        </div>
+        <div id="nav">
+            {% if article_prev != None %}
+                <a href="{{ url_for('.article_body', id = article_prev.id) }}" class="nav-prev"><span class="glyphicon glyphicon-menu-left nav-span"></span>{{ article_prev.title }}</a>
+            {% else %}
+                <div class="nav-prev"><span class="glyphicon glyphicon-menu-left nav-span"></span>没有了</div>
+            {% endif %}
+            {% if article_next != None %}
+                <a href="{{ url_for('.article_body', id = article_next.id) }}" class="nav-next">{{ article_next.title }}<span class="glyphicon glyphicon-menu-right nav-span"></a>
+            {% else %}
+                <div class="nav-next">没有了<span class="glyphicon glyphicon-menu-right nav-span"></div>
+            {% endif %}
+        </div>
+        <div>
+        <h4 style="padding-top: 15px;"><b><font face="微软雅黑">评论</font></b></h4>
+            <hr>
+            {% for comment in article.comments %}
+                <div class="media">
+                    <div class="media-left">
+                        <img class="avatar" src="{{ url_for('static', filename = 'img/avatar/avatar2.png') }}" alt="">
+                    </div>
+                    <div class="media-body">
+                        <div><a href="">用户名</a></div>
+                        <div class="commenttimestamp">评论于 {{ comment.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</div>
+                        <div>{{ comment.body|safe }}</div>
+                    </div>
+                </div>
+                <hr>
+            {% endfor %}
+        </div>
+        <div>
+            <form action="/send/article-comment" method="POST">
+                {{ comment_form.hidden_tag() }}
+                <div style="display: none;">
+                    {{ comment_form.article_id(value = article.id) }}
+                </div>
+                {{ comment_form.comment(id = "editor") }}
+                {{ comment_form.submit(class = 'btn btn-default') }}
+            </form>
+        </div>
+    </div>
+{% endblock %}

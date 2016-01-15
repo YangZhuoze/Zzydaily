@@ -1,0 +1,73 @@
+hr {
+     font-size: 0px;
+     line-height: 0px;
+     padding: 0px;
+     margin: 0px;
+     border-top: 1px solid #C0C0C0;
+}
+
+#weather-img {
+    width: 60px;
+    height: 60px;
+    position: relative;
+    left: 20px;
+}
+
+#weather {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: rgba(255, 255, 255, 0.6);
+    color: #900000;
+    font-family: Microsoft Yahei;
+    width: 100px;
+    position: relative;
+    top: 5px;
+}
+
+#editor {
+    overflow:scroll;
+    max-height:300px;
+}
+
+#none-article {
+    text-align: center;
+    color: grey;
+    background-color: rgb(248, 248, 248);
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#mind_form {
+    width: 571px;
+    height: 78px;
+    resize: none;
+}
+
+.mind-timestamp {
+    font-size: 9px;
+    color: grey;
+    padding-top: 10px;
+}
+
+.mind-label {
+    font-size: 18px;
+    position: relative;
+    -webkit-appearance: none;
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+}
+
+.mind-comment-timestamp {
+    font-size: 9px;
+    color: grey;
+}
+
+.mind-comment-reply {
+    font-size: 11px;
+    color: black;
+    visibility: hidden;
+}
