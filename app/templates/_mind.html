@@ -1,20 +1,24 @@
+{% if current_user.is_authenticated and auth(PERMISSION_MIND_INSERT) %}
 <div class="panel panel-default">
     <div class="panel-body">
-        {{ mind_form.hidden_tag() }}
-        <div>What's on your mind?</div>
-        {{ mind_form.mind(id = 'mind_form') }}
-        {{ mind_form.submit(class = 'btn btn-default') }}
+        <form action="/send/mind" method="POST" class="input-group" style="padding-top: 5px">
+            {{ mind_form.hidden_tag() }}
+            <div>What's on your mind?</div>
+            {{ mind_form.mind(id = 'mind_form') }}
+            {{ mind_form.submit(class = 'btn btn-default') }}
+        </form>
     </div>
 </div>
+{% endif %}
 {% for mind in minds %}
 <div class="panel panel-default">
     <div class="panel-body">
         <div style="font-size: 15px">
-            {% if mind.author.username != 'yangz' %}
+            {% if mind.author.name != 'yangz' %}
                 <span class="label label-primary">by {{ mind.author.username }}</span>
             {% endif %}
             前面也来一点
-            {{ mind.body_html }}
+            {{ mind.content_html|safe }}
             来几个中文啊大兄弟
         </div>
         <div class="row">
@@ -52,7 +56,7 @@
                                 onmouseover="showReply('mind-comment-reply-button-{{ comment.id }}')"
                                 onmouseout="hideReply('mind-comment-reply-button-{{ comment.id }}')">
                                 <div>
-                                    <a href="">{{ comment.author.username }}</a>: {{ comment.content}}
+                                    <a href="">{{ comment.author.name }}</a>: {{ comment.content_html|safe}}
                                 </div>
                                 <div class="row">
                                     <div class="col-md-10 mind-comment-timestamp">
@@ -67,13 +71,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="mind-comment-reply-0{{ comment.id }}" class="collapse">
+                        <div id="mind-comment-reply-{{ comment.id }}" class="collapse">
                             <form action="/send/mind-comment" method="POST" class="input-group" style="padding-top: 5px">
                                 {{ comment_form.hidden_tag() }}
                                 <div style="display: none;">
                                     {{ comment_form.mind_id(value = mind.id, id = 'mind-comment-reply-%s-mind' % comment.id) }}
                                 </div>
-                                {{ comment_form.comment(class = 'form-control', value = '@%s :' % comment.author.username,
+                                {{ comment_form.comment(class = 'form-control', value = '@%s :' % comment.author.name,
                                     id = 'mind-comment-reply-%s-content' % comment.id) }}
                                 <span class="input-group-btn">
                                     {{ comment_form.submit(class = 'btn btn-default',

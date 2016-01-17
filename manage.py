@@ -1,6 +1,7 @@
 import os
 from app import create_app, db
-from app.models import User, Mind, Article, Category, Mind_Comment, Article_Comment
+from app.models import User, Mind, Article, Category, Mind_Comment, Article_Comment, Permission, \
+    Role
 from flask.ext.script import Manager, Shell, Server
 from flask.ext.login import login_user
 
@@ -9,7 +10,8 @@ manager = Manager(app)
 
 def make_shell_context():
     return dict(app = app, db = db, User = User, Mind = Mind, Article = Article, Category = Category,
-        Mind_Comment = Mind_Comment, Article_Comment = Article_Comment)
+        Mind_Comment = Mind_Comment, Article_Comment = Article_Comment, Permission = Permission, \
+        Role = Role)
 
 manager.add_command('shell', Shell(make_context = make_shell_context))
 manager.add_command('runserver', Server(host = '0.0.0.0', port = 5000))

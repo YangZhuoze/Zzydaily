@@ -93,7 +93,7 @@ class Mind(db.Model):
 
     @staticmethod
     def on_changed_content(target, value, oldvalue, initiator):
-        target.content_html = bleach.clean(value, tags = ['code'], strip = True)
+        target.content_html = bleach.clean(value, tags = ['code', 'a'], strip = True)
 
 class Article_Comment(db.Model):
 
@@ -118,40 +118,47 @@ class Mind_Comment(db.Model):
 
     @staticmethod
     def on_changed_content(target, value, oldvalue, initiator):
-        target.content_html = bleach.clean(value, tags = ['code'], strip = True)
+        target.content_html = bleach.clean(value, tags = ['code', 'a'], strip = True)
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
 
 class Permission():
-    MIND_INSERT = 0x000001
-    MIND_MODIFY = 0x000002
-    MIND_COMMENT_INSERT = 0x000004
-    MIND_COMMENT_MODIFY = 0x000008
-    ARTICLE_INSERT = 0x000010
-    ARTICLE_MODIFY = 0x000020
-    ARTICLE_COMMENT_INSERT = 0x000040
-    ARTICLE_COMMENT_MODIFY = 0x000080
-    ARTICLE_CATEGORY_INSERT = 0x000100
-    ARTICLE_CATEGORY_MODIFY = 0x000200
-    MESSAGE_INSERT = 0x000400
-    MESSAGE_MODIFY = 0x000800
-    ALBUM_INSERT = 0x001000
-    ALBUM_MODIFY = 0x002000
-    ALBUM_COMMENT_INSERT = 0x004000
-    ALBUM_COMMENT_MODIFY = 0x008000
-    CAMERA_ACCESS = 0x010000
+    PERMISSION_MIND_INSERT = 0x000001
+    PERMISSION_MIND_MODIFY = 0x000002
+    PERMISSION_MIND_COMMENT_INSERT = 0x000004
+    PERMISSION_MIND_COMMENT_MODIFY = 0x000008
+    PERMISSION_ARTICLE_INSERT = 0x000010
+    PERMISSION_ARTICLE_MODIFY = 0x000020
+    PERMISSION_ARTICLE_COMMENT_INSERT = 0x000040
+    PERMISSION_ARTICLE_COMMENT_MODIFY = 0x000080
+    PERMISSION_ARTICLE_CATEGORY_INSERT = 0x000100
+    PERMISSION_ARTICLE_CATEGORY_MODIFY = 0x000200
+    PERMISSION_MESSAGE_INSERT = 0x000400
+    PERMISSION_MESSAGE_MODIFY = 0x000800
+    PERMISSION_ALBUM_INSERT = 0x001000
+    PERMISSION_ALBUM_MODIFY = 0x002000
+    PERMISSION_ALBUM_COMMENT_INSERT = 0x004000
+    PERMISSION_ALBUM_COMMENT_MODIFY = 0x008000
+    PERMISSION_CAMERA_ACCESS = 0x010000
 
 db.event.listen(Mind.content, 'set', Mind.on_changed_content)
 db.event.listen(Mind_Comment.content, 'set', Mind_Comment.on_changed_content)
 
 def generate():
     role = Role(name = 'Admin',permission = 0xFFFFFF, default = True)
+    role2 = Role(name = 'none', permission = 0, default = False)
     db.session.add(role)
+    db.session.add(role2)
     db.session.commit()
     role = Role.query.filter_by(id = 1).first()
-    user = User(uuid = '1',name = 'yangz', role = role,
+    role2 = Role.query.filter_by(id = 1).first()
+    user = User(uuid = '1',name = 'yangz',
         location = 'guangzhou', description = 'im yangzz')
+    user2 = User(uuid = '2',name = 'yy',
+        location = 'guangzhou', description = 'im yy')
+    user2.role = role2
     db.session.add(user)
+    db.session.add(user2)
     db.session.commit()
