@@ -11,7 +11,7 @@
     {% include '_header.html' %}
     <div class="panel">
         <div class="panel-body">
-            <div id="title">Article</div>
+            <div id="title">Article<a href="article/publish" id="new-article-button" class="btn btn-primary">New Article</a></div>
             <div class="col-md-10" id="article-body">
                 {% for article in articles %}
                     <div>

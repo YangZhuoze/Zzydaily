@@ -26,6 +26,13 @@
     font-weight: bold;
 }
 
+#new-article-button {
+     position: relative;
+     top: -7px;
+     float:right;
+     height:30px;
+}
+
 .article-category {
     padding-top: 0px;
     padding-bottom: 0px;

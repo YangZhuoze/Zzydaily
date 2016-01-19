@@ -45,7 +45,7 @@
         <div id="title">{{ article.title }}</div>
         <div id="timestamp">在&nbsp;{{ article.timestamp }}&nbsp;发表在&nbsp;{{ article.category.name }}</div>
         <hr>
-        <div id="content">{{ article.content }}</div>
+        <div id="content">{{ article.content|safe }}</div>
         <div id="popularity">
             <span class="label label-success">{{ article.views_count }} View</span>
             <span class="label label-warning">{{ article.comments.count() }} Comment</span>
@@ -71,16 +71,16 @@
                         <img class="avatar" src="{{ url_for('static', filename = 'img/avatar/avatar2.png') }}" alt="">
                     </div>
                     <div class="media-body">
-                        <div><a href="">用户名</a></div>
-                        <div class="commenttimestamp">评论于 {{ comment.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</div>
-                        <div>{{ comment.body|safe }}</div>
+                        <div><a href="">用户名</a>&nbsp;&nbsp;<small class="commenttimestamp">评论于 {{ comment.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</small></div>
+
+                        <div>{{ comment.content|safe }}</div>
                     </div>
                 </div>
                 <hr>
             {% endfor %}
         </div>
         <div>
-            <form action="/send/article-comment" method="POST">
+            <form action="/article/comment" method="POST">
                 {{ comment_form.hidden_tag() }}
                 <div style="display: none;">
                     {{ comment_form.article_id(value = article.id) }}

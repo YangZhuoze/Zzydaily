@@ -1,0 +1,16 @@
+#page-title {
+    padding-top: 5px;
+    padding-bottom: 10px;
+    font-size: 16px;
+    font-family: Microsoft Yahei;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+#editor {
+    height:200px;
+    max-height:280px;
+}
+
+.form-group {
+    margin: 15px;
+}

@@ -1,11 +1,11 @@
-import json, urllib2, re
+import json, urllib2, re, bleach
 from datetime import datetime
-from flask import render_template, current_app, redirect, url_for, request
+from flask import render_template, current_app, redirect, url_for, request, flash
 from flask.ext.login import current_user, login_required
 from weibo import APIClient
 
 from . import main
-from .form import MindForm, MindCommentForm, ArticleCommentForm
+from .form import MindForm, MindCommentForm, ArticleForm, ArticleCommentForm
 from .. import db
 from ..models import Mind, Article, Mind_Comment, Article_Comment, Category, Permission
 
@@ -34,24 +34,6 @@ def index():
         minds = minds, articles = articles, weather = weather,
             mind_form = mind_form, comment_form = comment_form)
 
-@main.route('/article', methods = ['GET', 'POST'])
-def article():
-    articles = Article.query.order_by(Article.timestamp.desc()).all()
-    categories = Category.query.all()
-    return render_template('article.html', articles = articles, categories = categories)
-
-@main.route('/article/<int:id>', methods = ['GET', 'POST'])
-def article_body(id):
-    article = Article.query.filter_by(id = id).first()
-    article.views_count = article.views_count + 1
-    db.session.add(article)
-    article_prev = Article.query.filter_by(id = id - 1).first()
-    article_next = Article.query.filter_by(id = id + 1).first()
-    comment_form = ArticleCommentForm()
-    return render_template('article_body.html', article = article,
-        article_prev = article_prev, article_next = article_next,
-        comment_form = comment_form)
-
 @main.route('/send/mind', methods = ['GET', 'POST'])
 @login_required
 def send_mind():
@@ -77,21 +59,62 @@ def send_mind_comment():
         db.session.commit()
         return redirect(url_for('.index'))
 
-@main.route('/send/article-comment', methods = ['GET', 'POST'])
+@main.route('/article', methods = ['GET', 'POST'])
+def article():
+    articles = Article.query.order_by(Article.timestamp.desc()).all()
+    categories = Category.query.all()
+    return render_template('article.html', articles = articles, categories = categories)
+
+@main.route('/article/<int:id>', methods = ['GET', 'POST'])
+def article_body(id):
+    article = Article.query.filter_by(id = id).first()
+    article.views_count = article.views_count + 1
+    db.session.add(article)
+    article_prev = Article.query.filter_by(id = id - 1).first()
+    article_next = Article.query.filter_by(id = id + 1).first()
+    comment_form = ArticleCommentForm()
+    return render_template('article_body.html', article = article,
+        article_prev = article_prev, article_next = article_next,
+        comment_form = comment_form)
+
+@main.route('/article/comment', methods = ['GET', 'POST'])
 @login_required
 def send_article_comment():
     form = ArticleCommentForm()
     if form.validate_on_submit():
-        comment = Article_Comment(body = form.comment.data,
+        comment = Article_Comment(content = form.comment.data,
             timestamp = datetime.now(),
             article_id = form.article_id.data)
         db.session.add(comment)
         db.session.commit()
         return redirect(url_for('.article_body', id = form.article_id.data))
 
-@main.route('/edit-article', methods = ['GET', 'POST'])
-def edit_article():
-    return render_template('edit_article.html')
+@main.route('/article/publish', methods = ['GET', 'POST'])
+@login_required
+def article_publish():
+    if current_user.role.permission & Permission.PERMISSION_ARTICLE_INSERT != \
+        Permission.PERMISSION_ARTICLE_INSERT:
+        flash('You do not have enough permission, contact website owner plz')
+        return redirect(url_for('.article'))
+    else:
+        form = ArticleForm()
+        form.category.choices = [(c.id, c.name) for c in Category.query.all()]
+        if form.validate_on_submit():
+            article = Article(title = bleach.clean(form.title.data, tags = [], strip = True),
+                content = form.content.data,
+                author = current_user._get_current_object(),
+                timestamp = datetime.now(),
+                category = Category.query.filter_by(id = form.category.data).first())
+            db.session.add(article)
+            db.session.commit()
+            return redirect(url_for('.article'))
+        return render_template('article_edit.html', form = form)
+
+@main.route('/edit-article/<int:id>', methods = ['GET', 'POST'])
+@login_required
+def edit_article(id):
+    if id == 0:
+        return render_template('article_edit.html')
 
 @main.route('/logout', methods = ['GET', 'POST'])
 def testlogout():

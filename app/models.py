@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-import hashlib
-import bleach
+import hashlib, bleach
 from datetime import datetime
 from markdown import markdown
 from flask.ext.login import UserMixin
