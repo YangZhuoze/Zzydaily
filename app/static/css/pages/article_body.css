@@ -27,6 +27,8 @@ hr {
     margin: 10px;
     margin-top: 30px;
     margin-bottom: 50px;
+    word-wrap:break-word;
+    line-height: 1.7;
 }
 
 #popularity {
@@ -69,7 +71,13 @@ hr {
     width: 40px;
 }
 
-.commenttimestamp {
+.comment-content {
+    margin-top: 5px;
+    display: block;
+    line-height: 1.7;
+}
+
+.comment-timestamp {
     font-size: 9px;
     color: grey;
     padding-top: 5px;

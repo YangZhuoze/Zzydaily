@@ -22,8 +22,8 @@ var define;
 })(function($){
 $(function(){
     //判断IE6、7、8
-    var isIE6 = false, 
-        isIE7 = false, 
+    var isIE6 = false,
+        isIE7 = false,
         isIE8 = false,
         appVersion;
     if(navigator.appName === "Microsoft Internet Explorer"){
@@ -110,7 +110,7 @@ $(function(){
                 }
             });
         };
-    } 
+    }
 });
 //检测jquery是否正常
 if(!$){
@@ -164,7 +164,7 @@ $.extend($E, {
 
     //获取唯一的id
     'getUniqeId': function(){
-        return idPrefix + (globalNum++); 
+        return idPrefix + (globalNum++);
     },
 
     //专门针对url的xss验证
@@ -191,7 +191,7 @@ $.extend($E, {
         //var result = html.replace(/\n/mg, "");  //去掉换行，会在更新代码时高亮代码不换行了
         var result = html;
         //过滤单引号，双引号
-        result = result.replace( /(<.*?>)|(')|(")/mg, function(a,b,c,d){ 
+        result = result.replace( /(<.*?>)|(')|(")/mg, function(a,b,c,d){
             if( b ){
                 return b;
             }else if(c){
@@ -203,7 +203,7 @@ $.extend($E, {
 
         return result;
     },
-    
+
     //将table的边框强制显示
     'showTableBorder': function($content){
         $content.find('table').each(function(){
@@ -218,7 +218,7 @@ $.extend($E, {
                 $this.attr('cellspacing', '0');
                 $this.css({
                     'border-collapse': 'collapse'
-                    
+
                 });
                 // 暂时先屏蔽掉这个最小宽度，因为有些 td 比较窄，100px太宽了
                 // $this.find('tr').first().find('td,th').css({
@@ -252,7 +252,7 @@ $.extend($E, {
     //样式配置
     'styleConfig': {
         'fontFamilyOptions': [
-            '宋体', '黑体', '楷体', '隶书', '幼圆', '微软雅黑', 
+            '宋体', '黑体', '楷体', '隶书', '幼圆', '微软雅黑',
             'Arial', 'Verdana', 'Georgia', 'Times New Roman', 'Microsoft JhengHei',
             'Trebuchet MS', 'Courier New', 'Impact', 'Comic Sans MS'
         ],
@@ -299,7 +299,7 @@ $.extend($E, {
         //菜单组
         'btnContainerGroup': '<div class="wangEditor-btn-container-group"></div>',
         //单个菜单按钮（一定要有 herf='#'，否则无法监听blur事件）
-        'btn': '<a class="wangEditor-btn-container-btn wangEditor-btn-container-btn-default" href="#"></a>', 
+        'btn': '<a class="wangEditor-btn-container-btn wangEditor-btn-container-btn-default" href="#"></a>',
         //下拉按钮右侧的小三角
         'btnAngleDown': '<i class="wangeditor-menu-img-angle-down" style="margin-left:3px;"></i>',
         //btn tooltip
@@ -314,10 +314,10 @@ $.extend($E, {
         'modalSmall': '<div class="wangEditor-modal wangEditor-modal-small">{content}</div>',
         'modalMini': '<div class="wangEditor-modal wangEditor-modal-mini">{content}</div>',
         //modal header
-        'modalHeader': '<div class="wangEditor-modal-header clearfix">' + 
-                            '<a href="#" commandName="close" class="wangEditor-modal-header-close"><i class="wangeditor-menu-img-cancel"></i></a>' + 
-                            '<b>{title}</b>' + 
-                            '<div class="wangEditor-modal-header-line"></div>' + 
+        'modalHeader': '<div class="wangEditor-modal-header clearfix">' +
+                            '<a href="#" commandName="close" class="wangEditor-modal-header-close"><i class="wangeditor-menu-img-cancel"></i></a>' +
+                            '<b>{title}</b>' +
+                            '<div class="wangEditor-modal-header-line"></div>' +
                         '</div>',
         //编辑框的容器
         'txtContainer': '<div class="wangEditor-textarea-container"></div>',
@@ -331,7 +331,7 @@ $.extend($E, {
         'dropPanelBig': '<div class="wangEditor-drop-panel wangEditor-drop-panel-big">{content}</div>',
         //dropPanel-floatItem（即 dropPanel 里面一个一个的块 ）
         'dropPanel_floatItem': '<div class="wangEditor-drop-panel-floatItem">{content}</div>',
-        
+
         //表情dropPanel的tab容器
         'dropPanel_expression_tab_container': '<div class="clearfix wangEditor-expression-tab-container">{content}</div>',
         //表情dropPanel中的tab
@@ -371,13 +371,13 @@ $.extend($E, {
             '</video>',
             '<p><br></p>'
         ].join(''),
-        
+
         //代码块
         'codePre': '<pre style="border:1px solid #ccc; background-color: #f5f5f5; padding: 10px; margin: 5px 0px; line-height: 1.4; font-size: 0.8em; font-family: Menlo, Monaco, Consolas; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;">{content}</pre><p><br></p>',
         //代码块（highlight插件）
         'codePreWidthHightLight': '<pre><code class="{lang}">{content}</code></pre><p><br></p>'
     },
-    
+
     //表情配置（1.gif, 2.gif, 3.gif ... 100.gif）
     'expressionConfig': {
         'path':'http://wangeditor.github.io/expressions/',
@@ -437,11 +437,11 @@ $.extend($E, {
 	                    '</form>' +
 	                    '<div style="display:none;"><iframe id="' + iframeId + '" name="' + iframeId + '" style="display:none; width:0; height:0;"></iframe></div>',
 	        $uploadImg_modal = $( content );
-	    
+
 	    $uploadImg_modal.find('#' + btnId).click(function(e){
 	        //检验是否传入uploadUrl配置
 	        if(uploadUrl == null || typeof uploadUrl !== 'string'){
-	            alert('未配置URL地址，不能上传图片');  
+	            alert('未配置URL地址，不能上传图片');
 	            //该提示给测试人员，而非让用户看到，因此不用多语言
 	            return;
 	        }
@@ -460,7 +460,7 @@ $.extend($E, {
 	            alert( langFileTypeError );
 	            return;
 	        }
-	        
+
 	        //检验通过，开始提交...
 
 	        var $btn = $(this),
@@ -511,7 +511,7 @@ $.extend($E, {
 
 	                //提示成功插入图片
 	                $E.consoleLog('wangEditor_uploadImgCallback方法已经成功插入图片，弹出框也被关闭！');
-	                
+
 	            }else{
 	                //失败
 	                alert(result);
@@ -940,7 +940,7 @@ $.extend($E, {
         //插入这个菜单组
         editor.insertMenuGroup($group);
     },
-    
+
     //创建一个菜单
     'createMenu': function(menu, editor){
         //验证
@@ -969,7 +969,7 @@ $.extend($E, {
             $dropPanel = menuDate.dropPanel && menuDate.dropPanel(editor),
             $modal = menuDate.modal && menuDate.modal(editor),
             callback = menuDate.callback,
-            $btn = $( $E.htmlTemplates.btn ),  
+            $btn = $( $E.htmlTemplates.btn ),
             resultArray = [$btn],
 
             //将在下文定义的函数
@@ -1019,9 +1019,9 @@ $.extend($E, {
             if(typeof command === 'function'){
                 btnClick = function(e){
                     editor.hideModal();   //先视图隐藏目前显示的modal
-                    
+
                     command(e);  //如果command是函数，则直接执行command
-                    
+
                     e.stopPropagation();  //最后阻止冒泡
                 };
             }
@@ -1072,7 +1072,7 @@ $.extend($E, {
                 $dropMenu.css('display', 'inline-block');
                 e.preventDefault();
                 $btn.focus();  //for 360急速浏览器
-                
+
                 e.stopPropagation();  //最后阻止冒泡
             };
             $btn.blur(function(e){
@@ -1089,7 +1089,7 @@ $.extend($E, {
                 if(commandName){
                     command = commandName;
                 }
-                
+
                 editor.command(e, command, value, callback);
             });
 
@@ -1122,7 +1122,7 @@ $.extend($E, {
 
                 e.preventDefault();
                 $btn.focus();  //for 360急速浏览器
-                
+
                 e.stopPropagation();  //最后阻止冒泡
             };
 
@@ -1137,7 +1137,7 @@ $.extend($E, {
             $dropPanel.on('click', 'a[commandValue]', function(e){
                 var $this = $(this),
                     value = $this.attr('commandValue');
-                
+
                 editor.command(e, command, value, callback);
             });
 
@@ -1307,7 +1307,7 @@ $.extend($E.fn, {
             .append(editor.$imgResizeBtn);
 
         //将 modalContainer 添加到 body
-        //以免 modalContainer 中的 form 会影响到外面的form 
+        //以免 modalContainer 中的 form 会影响到外面的form
         $('body').append(editor.$modalContainer);
 
         //设置高度的最小值（再小了，文本框就显示不出来了）
@@ -1321,9 +1321,9 @@ $.extend($E.fn, {
         //设置高度（必须在dom渲染完之后才行）
         $(function(){
             //计算txtContainer的高度，必须等待页面加载完成才能计算，否则dom没有被渲染，无法计算高度
-            var txtContainerHeight = height - editor.$btnContainer.outerHeight(); 
+            var txtContainerHeight = height - editor.$btnContainer.outerHeight();
             txtContainerHeight = txtContainerHeight - 2;  //减去$editorContainer的上下两个边框宽度
-            
+
             if(txtContainerHeight <= 0){
                 //有时候，页面加载时，txtContainerHeight 会莫名其妙的变为负值
                 //强制刷新页面之后，又恢复正常
@@ -1337,7 +1337,7 @@ $.extend($E.fn, {
                 //设置绝对高度
                 editor.$txtContainer.height( txtContainerHeight );
             }
-            
+
             //设置 txt 的高度
             editor.$txt.css('min-height', (txtContainerHeight - 10) + 'px');
         });
@@ -1384,7 +1384,7 @@ $.extend($E.fn, {
         //初始化menus
         editor.initMenus();
         editor.initMenuConfig();
-        
+
         //配置menuConfig
         if(menuConfig && (menuConfig instanceof Array) === true && (menuConfig[0] instanceof Array) === true){  //需要确定menuConfig是二维数组才行
             //如果options中配置了menuConfig，直接复制给 editor.editorMenuConfig
@@ -1419,13 +1419,13 @@ $.extend($E.fn, {
             //当鼠标按下时，可能会拖拽选择，这就有可能拖拽到$txt外面再松开，需要监控
             editor.$txt.on('mouseleave', function(){
                 //鼠标拖拽到外面再松开的
-                editor.$txt.off('mouseleave'); 
+                editor.$txt.off('mouseleave');
                 setTimeout(txtListener, 100);  //缓0.1s，否则鼠标移动太快的话，选不全
             });
         }).on('click keyup', function(e){
             var keyForMoveCursor = false,
                 //上、下、左、右、home、end、pageup、pagedown、ctrl + a
-                kCodes = [33, 34, 35, 36, 37, 38, 39, 40, 13, 8, 46, 9, 65]; 
+                kCodes = [33, 34, 35, 36, 37, 38, 39, 40, 13, 8, 46, 9, 65];
             keyForMoveCursor = ( e.type === 'click' || (e.type === 'keyup' && (kCodes.indexOf(e.keyCode) !== -1) || e.ctrlKey || e.shiftKey || e.metaKey) );
             if (!keyForMoveCursor) {
                 return;  //只监听click, 和 kCodes 中的这几个键，其他的不监听
@@ -1513,7 +1513,7 @@ $.extend($E.fn, {
         //返回------------------
         return editor;
     }
-    
+
 });
 $.extend($E.fn, {
 	//往menu中插入btn Group
@@ -1675,11 +1675,11 @@ $.extend($E.fn, {
             $deleteBtn.off();
             $deleteBtn.click(function(e){
                 //统一用editor.command删除，方便撤销
-                editor.command(e, 'delete$elem', $elem, hideElemDeleteBtn);  
+                editor.command(e, 'delete$elem', $elem, hideElemDeleteBtn);
             });
 
             //阻止冒泡，不能让 editor.$txt 监控到click事件
-            e.stopPropagation(); 
+            e.stopPropagation();
             e.preventDefault();
         });
         //隐藏删除按钮
@@ -1779,7 +1779,7 @@ $.extend($E.fn, {
                 //开始移动的标记
                 isResizeBtnMoving = true;
 
-                //计算鼠标离 resizeBtn 左上角的相对位置 
+                //计算鼠标离 resizeBtn 左上角的相对位置
                 var resizeBtnPostion = $resizeBtn.position();
                 _x = e.pageX - editorContainerLeft - resizeBtnPostion.left;
                 _y = e.pageY - editorContainerTop - resizeBtnPostion.top;
@@ -1816,7 +1816,7 @@ $.extend($E.fn, {
             });
 
             //阻止冒泡，不能让 editor.$txt 监控到click事件
-            e.stopPropagation();  
+            e.stopPropagation();
             e.preventDefault();
         });
         //隐藏resizeBtn按钮
@@ -1897,7 +1897,7 @@ $.extend($E.fn, {
 				// 不支持粘贴API
 				return;
 			}
-			
+
 			// 获取内容
 			text = data.getData('text');
 			if (text === '') {
@@ -1928,10 +1928,10 @@ $.extend($E.fn, {
 
 		// 将以base64的图片url数据转换为Blob
 		function convertBase64UrlToBlob(urlData){
-    
+
     		//去掉url的头，并转换为byte
 		    var bytes=window.atob(urlData.split(',')[1]);
-		    
+
 		    //处理异常,将ascii码小于0的转换为大于0
 		    var ab = new ArrayBuffer(bytes.length);
 		    var ia = new Uint8Array(ab);
@@ -1988,7 +1988,7 @@ $.extend($E.fn, {
 				            xhr.send(formData);
 						}else{
 							//不上传，则保存为 base64编码
-							src = base64;  
+							src = base64;
 							//执行插入
 							editor.command(e, 'insertImage', src);
 						}
@@ -2071,7 +2071,7 @@ $.extend($E.fn, {
     'title': langMenus.removeFormat.title,
     'type': 'btn',
     'cssClass':'wangeditor-menu-img-eraser',
-    'command': 'RemoveFormat ' 
+    'command': 'RemoveFormat '
 },
 // 'indent': {
 //     'title': langMenus.indent.title,
@@ -2085,18 +2085,18 @@ $.extend($E.fn, {
 //     'type': 'btn',
 //     'cssClass':'wangeditor-menu-img-indent-left',
 //     'command': 'outdent'
-// }, 
+// },
 'unLink': {
     'title': langMenus.unLink.title,
     'type': 'btn',
     'cssClass':'wangeditor-menu-img-unlink',
-    'command': 'unLink ' 
+    'command': 'unLink '
 },
 'insertHr': {
     'title': langMenus.insertHr.title,
     'type': 'btn',
     'cssClass':'wangeditor-menu-img-minus',
-    'command': 'InsertHorizontalRule' 
+    'command': 'InsertHorizontalRule'
 },
 'strikethrough':{
     'title': langMenus.strikethrough.title,
@@ -2133,7 +2133,7 @@ $.extend($E.fn, {
 
             //获取当前的 style ，或者初始化为空字符串
             style = $quote.attr('style') || '';
-            
+
             //拼接新的 style
             style = $E.styleConfig.blockQuoteStyle + style;
 
@@ -2183,7 +2183,7 @@ $.extend($E.fn, {
         });
 
         $ul = $( $E.htmlTemplates.dropMenu.replace('{content}', arr.join('')) );
-        return $ul; 
+        return $ul;
     }
 },
 'list': {
@@ -2215,14 +2215,14 @@ $.extend($E.fn, {
         });
 
         $ul = $( $E.htmlTemplates.dropMenu.replace('{content}', arr.join('')) );
-        return $ul; 
+        return $ul;
     }
 },
 'fontFamily': {
     'title': langMenus.fontFamily.title,
     'type': 'dropMenu',
     'cssClass': 'wangeditor-menu-img-font2',
-    'command': 'fontName ', 
+    'command': 'fontName ',
     'dropMenu': function(){
         var arr = [],
             //注意，此处commandValue必填项，否则程序不会跟踪
@@ -2237,7 +2237,7 @@ $.extend($E.fn, {
             );
         });
         $ul = $( $E.htmlTemplates.dropMenu.replace('{content}', arr.join('')) );
-        return $ul; 
+        return $ul;
     },
     'callback': function(editor){
         //console.log(editor);
@@ -2262,22 +2262,22 @@ $.extend($E.fn, {
             );
         });
         $ul = $( $E.htmlTemplates.dropMenu.replace('{content}', arr.join('')) );
-        return $ul; 
+        return $ul;
     }
 },
 'setHead': {
     'title': langMenus.setHead.title,
-    'type': 'dropMenu', 
+    'type': 'dropMenu',
     'cssClass':'wangeditor-menu-img-header',
     'command': 'formatBlock ',
     'dropMenu': function(){
         var head = langMenus.setHead.title,
             content = langMenus.setHead.content;
 
-        var liListStr =  '<li><a href="#" commandValue="<h1>"><h1>' + head + '1</h1></a></li>' + 
-                    '<li><a href="#" commandValue="<h2>"><h2>' + head + '2</h2></a></li>' + 
-                    '<li><a href="#" commandValue="<h3>"><h3>' + head + '3</h3></a></li>' + 
-                    '<li><a href="#" commandValue="<h4>"><h4>' + head + '4</h4></a></li>' + 
+        var liListStr =  '<li><a href="#" commandValue="<h1>"><h1>' + head + '1</h1></a></li>' +
+                    '<li><a href="#" commandValue="<h2>"><h2>' + head + '2</h2></a></li>' +
+                    '<li><a href="#" commandValue="<h3>"><h3>' + head + '3</h3></a></li>' +
+                    '<li><a href="#" commandValue="<h4>"><h4>' + head + '4</h4></a></li>' +
                     '<li><a href="#" commandValue="<p>">' + content + '</a></li>';
         return $( $E.htmlTemplates.dropMenu.replace('{content}', liListStr) );
     }
@@ -2285,7 +2285,7 @@ $.extend($E.fn, {
 'foreColor': {
     'title': langMenus.foreColor.title,
     'type': 'dropPanel',
-    'cssClass': 'wangeditor-menu-img-pencil', 
+    'cssClass': 'wangeditor-menu-img-pencil',
     //'style': 'color:blue;',
     'command': 'foreColor',
     'dropPanel': function(){
@@ -2302,16 +2302,16 @@ $.extend($E.fn, {
                 $E.htmlTemplates.dropPanel_floatItem.replace('{content}', floatItem)
             );
         });
-        $panel = $( 
-            $E.htmlTemplates.dropPanel.replace('{content}', arr.join('')) 
+        $panel = $(
+            $E.htmlTemplates.dropPanel.replace('{content}', arr.join(''))
         );
-        return $panel; 
+        return $panel;
     }
 },
 'backgroundColor': {
     'title': langMenus.backgroundColor.title,
     'type': 'dropPanel',
-    'cssClass': 'wangeditor-menu-img-brush',  
+    'cssClass': 'wangeditor-menu-img-brush',
     //'style':'color:red;',
     'command': 'backColor ',
     'dropPanel': function(){
@@ -2328,15 +2328,15 @@ $.extend($E.fn, {
                $E.htmlTemplates.dropPanel_floatItem.replace('{content}', floatItem)
             );
         });
-        $panel = $( 
-            $E.htmlTemplates.dropPanel.replace('{content}', arr.join('')) 
+        $panel = $(
+            $E.htmlTemplates.dropPanel.replace('{content}', arr.join(''))
         );
-        return $panel; 
+        return $panel;
     }
 },
 'createLink': {
     'title': langMenus.createLink.title,
-    'type': 'modal', 
+    'type': 'modal',
     'cssClass': 'wangeditor-menu-img-link',
     'modal': function (editor) {
         var urlTxtId = $E.getUniqeId(),
@@ -2348,13 +2348,13 @@ $.extend($E.fn, {
             langLink = langModal.link,
             langTitle = langModal.title,
             langBlank = langModal.blank,
-            
+
             langBtn = langCommon.insert,
 
             langUnsafe = langCommon.unsafeAlert;
 
         var content = '<p>' +langLink+ '：<input id="' + urlTxtId + '" type="text" style="width:300px;"  placeholder="http://"/></p>' +
-                        '<p>' +langTitle+ '：<input id="' + titleTxtId + '" type="text" style="width:300px;"/></p>' + 
+                        '<p>' +langTitle+ '：<input id="' + titleTxtId + '" type="text" style="width:300px;"/></p>' +
                         '<p>' +langBlank+ '：<input id="' + blankCheckId + '" type="checkbox" checked="checked"/></p>' +
                         '<p><button id="' + btnId + '" type="button" class="wangEditor-modal-btn">' +langBtn+ '</button></p>',
             $link_modal = $(
@@ -2433,15 +2433,15 @@ $.extend($E.fn, {
 
         //生成dropPanel
         var $panel,
-            temp = 
+            temp =
                 //注意，此处commandValue必填项，否则程序不会跟踪
-                '<a href="#" commandValue="${value}">' + 
+                '<a href="#" commandValue="${value}">' +
                 // 菜单点击时，r_src 会替换为 src
-                '   <img r_src="${src}" expression="1"/>' +   
+                '   <img r_src="${src}" expression="1"/>' +
                 '</a>',
-            
+
             //应对一组表情
-            arr = [],  
+            arr = [],
 
             //应对多组表情
             exprIndex = 0,
@@ -2463,8 +2463,8 @@ $.extend($E.fn, {
                 );
             });
             //用dropPanel包裹生成的dom
-            $panel = $( 
-                $E.htmlTemplates.dropPanelBig.replace('{content}', arr.join('')) 
+            $panel = $(
+                $E.htmlTemplates.dropPanelBig.replace('{content}', arr.join(''))
             );
         }else{
             //多组表情
@@ -2498,16 +2498,16 @@ $.extend($E.fn, {
                                                                     .replace('{index}', exprIndex);
                 //将 group 添加到 groupArr
                 groupArr.push(group);
-            }); 
+            });
             //遍历结束之后，tabArr 和 groupArr 都会填充完成
 
             //将 tabArr 和 groupArr 都填充到相应的 container 容器中
             tabContainer = $E.htmlTemplates.dropPanel_expression_tab_container.replace('{content}', tabArr.join(''));
             groupContainer = $E.htmlTemplates.dropPanel_expression_group_container.replace('{content}', groupArr.join(''));
-            
+
             //用dropPanel包裹这两个容器
-            $panel = $( 
-                $E.htmlTemplates.dropPanelBig.replace('{content}', tabContainer + groupContainer) 
+            $panel = $(
+                $E.htmlTemplates.dropPanelBig.replace('{content}', tabContainer + groupContainer)
             );
 
             //控制显示和隐藏
@@ -2556,8 +2556,8 @@ $.extend($E.fn, {
                 $trigger.off('click.loadImg');
             });
         });
-        
-        return $panel; 
+
+        return $panel;
     }
 },
 'insertVideo': {
@@ -2591,7 +2591,7 @@ $.extend($E.fn, {
 
         //插入视频点击事件
         $video_modal.find('#' + btnId).click(function(e){
-            var src = $.trim( $('#' + txtSrcId).val() ), 
+            var src = $.trim( $('#' + txtSrcId).val() ),
                 width = +( $('#' + txtWidthId).val() ),
                 height = +( $('#' + txtHeightId).val() ),
                 reg = /^\s*(http:\/\/|https:\/\/).+(\.swf|\.ogg|\.mp4|\.webm)\s*$/i,
@@ -2635,7 +2635,7 @@ $.extend($E.fn, {
                         .replace(/#{width}/ig, width)
                         .replace(/#{height}/ig, height);
             }
-            
+
             editor.command(e, 'insertHTML', html, video_callback);
         });
 
@@ -2659,9 +2659,9 @@ $.extend($E.fn, {
 
             langBtn = langCommon.insert;
 
-        var content = '<p>' +langRowNum+ '：<input id="' + rowNumTxtId + '" type="text" value="3"/></p>' + 
+        var content = '<p>' +langRowNum+ '：<input id="' + rowNumTxtId + '" type="text" value="3"/></p>' +
                         '<p>' +langColNum+ '：<input id="' + colNumTxtId + '" type="text" value="5"/></p>' +
-                        '<p>' +langShowFirstRow+ '：<input id="' + titleCheckId + '" type="checkbox" checked="checked"/></p>' + 
+                        '<p>' +langShowFirstRow+ '：<input id="' + titleCheckId + '" type="checkbox" checked="checked"/></p>' +
                         '<p><button id="' + btnId + '"  type="button" class="wangEditor-modal-btn">' +langBtn+ '</button></p>',
             $table_modal = $(
                 $E.htmlTemplates.modalSmall.replace('{content}', content)
@@ -2693,7 +2693,7 @@ $.extend($E.fn, {
                 tdArray,
                 tdTemp_FirstRow = '<td style="min-width:100px; padding:5px;">&nbsp;</td>',
                 tdTemp = '<td style="padding:5px;">&nbsp;</td>';
-            
+
             for (i = 0; i < rowNum; i++) {
                 //遍历每一行
                 tdArray = [];
@@ -2784,8 +2784,8 @@ $.extend($E.fn, {
                 $alertInfoId.text( langInsertWeb );
                 $changeLinkId.text( langInsertLocal );
             }
- 
-            if(uploadImgComponent){  
+
+            if(uploadImgComponent){
                 //如果有上传组件
                 //将上传组件移动到model中
                 $webimg_modal.append(uploadImgComponent);
@@ -2820,8 +2820,8 @@ $.extend($E.fn, {
                 };
             if(!url){
                 //for IE6
-                url = $.trim(document.getElementById(urlTxtId).value); 
-                title = $.trim(document.getElementById(titleTxtId).value); 
+                url = $.trim(document.getElementById(urlTxtId).value);
+                title = $.trim(document.getElementById(titleTxtId).value);
             }
             if(url !== ''){
                 //xss过滤
@@ -2853,7 +2853,7 @@ $.extend($E.fn, {
             langTitle = langModal.title;
 
         var content = '<p>' +langTitle+ '：{selectLangs}</p>' +  // selectLangs 待填充语言列表下拉框
-                        '<div><textarea id="' + txtId + '" style="width:100%; height:100px;"></textarea></div>' + 
+                        '<div><textarea id="' + txtId + '" style="width:100%; height:100px;"></textarea></div>' +
                         '<button id="' + btnId + '"  type="button" class="wangEditor-modal-btn">插入</button>',
             selectLangs = '<select id="' + selectId + '">{content}</select>',  // content 待填充语言列表
             $simpleCode_modal;
@@ -2870,9 +2870,9 @@ $.extend($E.fn, {
 
             //循环数组，获取语言列表
             $.each(langs, function(key, lang){
-                langsStr = langsStr + 
-                            '<option value="' + lang + '">' + 
-                                lang + 
+                langsStr = langsStr +
+                            '<option value="' + lang + '">' +
+                                lang +
                             '</option>';
             });
 
@@ -2881,7 +2881,7 @@ $.extend($E.fn, {
             content = content.replace('{selectLangs}', selectLangs);  //插入下拉菜单
 
             //标记为有高亮插件
-            hashljs = true;  
+            hashljs = true;
 
         }else{
             //无高亮插件，则不显示语言下拉菜单
@@ -2971,9 +2971,9 @@ $.extend($E.fn, {
             langCantFindLocation = langAlert.cantFindLocation,
             langDynamicOneLocation = langAlert.dynamicOneLocation;
 
-        var content = langCity + '：<input type="text" id="' + txtCityId + '" style="width:60px;"/> ' + 
+        var content = langCity + '：<input type="text" id="' + txtCityId + '" style="width:60px;"/> ' +
                       langLocation + '：<input type="text" id="' + txtLocationId + '">' +
-                      ' <button class="wangEditor-modal-btn" id="' + btnSearchId + '"  type="button">' +langSearch+ '</button>' + 
+                      ' <button class="wangEditor-modal-btn" id="' + btnSearchId + '"  type="button">' +langSearch+ '</button>' +
                       ' <button class="wangEditor-modal-btn" id="' + btnClearId + '"  type="button">' +langClear+ '</button>' +
                       ' <div id="' + divMapId + '" style="width:100%; height:220px; border:1px solid #ccc; margin:10px 0px;">' +langLoading+ '</div>' +
                       ' <button class="wangEditor-modal-btn" id="' + btnInsertId +'"  type="button">' +langInsert+ '</button>' +
@@ -3007,8 +3007,8 @@ $.extend($E.fn, {
 
             //鼠标点击，创建位置
             map.addEventListener("click", function(e){
-                var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat)); 
-                map.addOverlay(marker);  
+                var marker = new BMap.Marker(new BMap.Point(e.point.lng, e.point.lat));
+                map.addOverlay(marker);
                 marker.enableDragging();
                 markers.push(marker);  //加入到数组中
             });
@@ -3035,7 +3035,7 @@ $.extend($E.fn, {
                 locationName = $.trim( $('#' + txtLocationId).val() ),
                 myGeo,
                 marker;
-            
+
             if(cityName !== ''){
                 if(!locationName || locationName === ''){
                     map.centerAndZoom(cityName, 11);
@@ -3213,7 +3213,7 @@ $.extend($E.fn, {
     'type': 'modal',
     'cssClass': 'wangeditor-menu-img-tablet',
     'modal': function (editor) {
-    	
+
 
     	return $('<div>');
     }
@@ -3266,7 +3266,7 @@ $.extend($E.fn, {
 	        }
 	    });
 	}
-	
+
 });
 $.extend($E.fn, {
 
@@ -3354,7 +3354,7 @@ $.extend($E.fn, {
             } catch (ex) {
 
             }
-            
+
             if(currentRange.text.length === 0){
                 range.collapse(false);
             }else{
@@ -3375,7 +3375,7 @@ $.extend($E.fn, {
             return;
         }
 
-        if(supportRange){ 
+        if(supportRange){
             //W3C方式
             range = document.createRange();
             range.setStart(txt, 0);
@@ -3401,7 +3401,7 @@ $.extend($E.fn, {
         }
         return true;
     }
-    
+
 });
 $.extend($E.fn, {
     'change': function(){
@@ -3418,7 +3418,7 @@ $.extend($E.fn, {
             $E.showTableBorder(this.$txt);
 
             // img max-width
-            $E.addImgMaxWidth(this.$txt);
+            //$E.addImgMaxWidth(this.$txt);
 
             //将html保存到textarea
             editor.textareaVal(html);
@@ -3470,7 +3470,7 @@ $.extend($E.fn, {
             this.html( this.commandRecords[this.commandRecordCursor] );
         }
     },
-    
+
     'redo': function(){
         var editor = this,
             length = editor.commandRecords.length;
@@ -3488,7 +3488,7 @@ $.extend($E.fn, {
             var $elem,
                 currentRange = this.currentRange(),
                 parentElem = this.parentElemForCurrentRange();
-            
+
             if(!currentRange){
                 return;
             }
@@ -3587,7 +3587,7 @@ $.extend($E.fn, {
         'replaceSourceCode': function(commandName, commandValue){
             this.html(commandValue);
         },
-        
+
         //切换全屏
         'fullScreen': function(commandName, commandValue){
             var $txtContainer = this.$txtContainer,
@@ -3600,7 +3600,7 @@ $.extend($E.fn, {
 
                 $enlargeIcon = $editorContainer.find('.' + enlargeClass),
                 $shrinkIcon = $editorContainer.find('.' + shrinkClass);
-            
+
             //切换icon
             if($enlargeIcon.length){
                 $enlargeIcon.removeClass(enlargeClass).addClass(shrinkClass);
@@ -3625,7 +3625,7 @@ $.extend($E.fn, {
                     'bottom': 20,
                     'z-index': 1000,
 
-                    '-webkit-box-shadow': '0 0 30px #999', 
+                    '-webkit-box-shadow': '0 0 30px #999',
                     '-moz-box-shadow': '0 0 30px #999',
                     'box-shadow': '0 0 30px #999'
                 });
@@ -3645,7 +3645,7 @@ $.extend($E.fn, {
                     'bottom': 0,
                     'z-index': 0,
 
-                    '-webkit-box-shadow': '0 0 0 #CCC', 
+                    '-webkit-box-shadow': '0 0 0 #CCC',
                     '-moz-box-shadow': '0 0 0 #CCC',
                     'box-shadow': '0 0 0 #CCC'
                 });
@@ -3686,7 +3686,7 @@ $.extend($E.fn, {
 
             //重新保存，否则chrome，360，safari，opera中会清空currentRange
             this.saveSelection();
-            
+
             //执行回调函数
             if(callback && typeof callback === 'function'){
                 callback(this);
@@ -3711,7 +3711,7 @@ $.extend($E.fn, {
     }
 });
 if(!Array.prototype.indexOf){
-    //IE低版本不支持 arr.indexOf 
+    //IE低版本不支持 arr.indexOf
     Array.prototype.indexOf = function(elem){
         var i = 0,
             length = this.length;
@@ -3735,7 +3735,7 @@ if(!Array.prototype.indexOf){
 }
 if (!Date.now) {
 	Date.now = function () {
-		return new Date().valueOf(); 
+		return new Date().valueOf();
 	};
 }
 $.fn.extend({

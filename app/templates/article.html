@@ -11,13 +11,17 @@
     {% include '_header.html' %}
     <div class="panel">
         <div class="panel-body">
-            <div id="title">Article<a href="article/publish" id="new-article-button" class="btn btn-primary">New Article</a></div>
+            <div id="title">Article
+                {% if current_user.is_authenticated and auth(PERMISSION_ARTICLE_INSERT) %}
+                    <a href="article/publish" id="new-article-button" class="btn btn-primary">New Article</a>
+                {% endif %}
+            </div>
             <div class="col-md-10" id="article-body">
                 {% for article in articles %}
                     <div>
                         <h3><a href="{{ url_for('.article_body', id = article.id) }}" id="article-title">
                             {{ article.title }}</a></h3>
-                        <div>{{ article.content[:300] }} ...</div>
+                        <div class="article-content">{{ summary(article.content)|safe }}</div>
                         <div class="row">
                             <div class="article-timestamp">
                                 {{ article.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}

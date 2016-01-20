@@ -65,7 +65,7 @@ class Article(db.Model):
     __tablename__ = 'articles'
 
     id = db.Column(db.Integer, primary_key = True)
-    title = db.Column(db.String(64), nullable = False)
+    title = db.Column(db.String(128), nullable = False)
     content = db.Column(db.Text)
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     timestamp = db.Column(db.DateTime, default = datetime.now())
@@ -160,4 +160,9 @@ def generate():
     user2.role = role2
     db.session.add(user)
     db.session.add(user2)
+    db.session.commit()
+    cc = ['test', '中文', '中文+english']
+    for c in cc:
+        a = Category(name = c)
+        db.session.add(a)
     db.session.commit()

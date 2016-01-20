@@ -18,7 +18,13 @@ def utility_processor():
     def auth(permission, user = current_user):
         authenorization = permission & current_user.role.permission
         return permission == authenorization
-    return dict(auth = auth)
+    def summary(article):
+        if '<img' in article:
+            return '''<div class="summary-left">%s</div><div class="summary-right">%s</div>''' \
+                % (re.search(r'<img\s.*?>', article).group(), bleach.clean(article, tags = ['b', 'i', 'strike', 'u'], strip = True)[:128])
+        else:
+            return bleach.clean(article, tags = ['b', 'i', 'strike', 'u'], strip = True)[:128]
+    return dict(auth = auth, summary = summary)
 
 @main.route('/', methods = ['GET', 'POST'])
 def index():
@@ -70,8 +76,8 @@ def article_body(id):
     article = Article.query.filter_by(id = id).first()
     article.views_count = article.views_count + 1
     db.session.add(article)
-    article_prev = Article.query.filter_by(id = id - 1).first()
-    article_next = Article.query.filter_by(id = id + 1).first()
+    article_prev = Article.query.filter_by(id = id + 1).first()
+    article_next = Article.query.filter_by(id = id - 1).first()
     comment_form = ArticleCommentForm()
     return render_template('article_body.html', article = article,
         article_prev = article_prev, article_next = article_next,

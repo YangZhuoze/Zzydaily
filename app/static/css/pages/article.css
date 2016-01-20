@@ -38,12 +38,36 @@
     padding-bottom: 0px;
 }
 
+.article-content {
+    width:685px;
+    max-height: 112px;
+    display: table-caption;
+    overflow:hidden;
+    word-wrap:break-word;
+    text-overflow: ellipsis;
+    line-height: 2;
+}
+
+.article-content > .summary-left > img {
+    height: 112px;
+    width: 200px;
+    float: left;
+}
+
+.article-content > .summary-right {
+    overflow:hidden;
+    word-wrap:break-word;
+    text-overflow: ellipsis;
+    margin-left: 210px;
+}
+
 .article-timestamp {
     margin-top: 10px;
     margin-left: 15px;
     float: left;
     font-size: 9px;
     color: grey;
+    display: table;
 }
 
 .article-more {

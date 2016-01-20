@@ -30,8 +30,7 @@
                 ['viewSourceCode'],
                 ['bold', 'underline', 'italic', 'strikethrough'],
                 ['blockquote', 'fontFamily', 'list'],
-                ['createLink', 'insertExpression'],
-                ['insertImage', 'insertVideo', 'insertLocation','insertCode'],
+                ['createLink', 'insertImage', 'insertVideo', 'insertLocation','insertCode'],
                 ['undo', 'redo', 'fullScreen']
             ]
         });
@@ -71,9 +70,9 @@
                         <img class="avatar" src="{{ url_for('static', filename = 'img/avatar/avatar2.png') }}" alt="">
                     </div>
                     <div class="media-body">
-                        <div><a href="">用户名</a>&nbsp;&nbsp;<small class="commenttimestamp">评论于 {{ comment.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</small></div>
+                        <div><a href="">用户名</a>&nbsp;&nbsp;<small class="comment-timestamp">评论于 {{ comment.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</small></div>
 
-                        <div>{{ comment.content|safe }}</div>
+                        <div class="comment-content">{{ comment.content|safe }}</div>
                     </div>
                 </div>
                 <hr>
