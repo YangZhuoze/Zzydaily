@@ -67,7 +67,12 @@ def send_mind_comment():
 
 @main.route('/article', methods = ['GET', 'POST'])
 def article():
-    articles = Article.query.order_by(Article.timestamp.desc()).all()
+    categoryid = request.args.get('category')
+    if categoryid != None:
+        category = Category.query.filter_by(id = categoryid).first()
+        articles = Article.query.filter_by(category = category).order_by(Article.timestamp.desc()).all()
+    else:
+        articles = Article.query.order_by(Article.timestamp.desc()).all()
     categories = Category.query.all()
     return render_template('article.html', articles = articles, categories = categories)
 

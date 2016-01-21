@@ -25,7 +25,8 @@
                         <div class="row">
                             <div class="article-timestamp">
                                 {{ article.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}
-                                &nbsp;&nbsp;Tag: {{ article.category.name }}
+                                &nbsp;&nbsp;Tag:
+                                <a href="{{ url_for('.article', category = article.category.id) }}">{{ article.category.name }}</a>
                             </div>
                             <div class="article-more">
                                  <span class="label label-warning">{{ article.views_count }} View</span>
@@ -43,12 +44,13 @@
                     <div id="category">Category</div>
                 </div>
                 <div class="row">
-                    <div class="category-name">All Article</div>
-                    <div class="category-count">{{ articles|length }}</div>
+                    <div class="category-name"><a href="{{ url_for('.article') }}" style="color: #000000">All Article</a></div>
                 </div>
                 {% for category in categories %}
                     <div class="row">
-                        <div class="category-name">{{ category.name }}</div>
+                        <div class="category-name">
+                            <a href="{{ url_for('.article', category = category.id) }}" style="color: #000000">{{ category.name }}</a>
+                        </div>
                         <div class="category-count">{{ category.articles.count() }}</div>
                     </div>
                 {% endfor %}
